@@ -37,6 +37,14 @@ const c: AB = "C";
 이 문구가 집합의 관점에서 ‘~의 원소’ 또는 ‘~의 부분 집합’을 의미한다
 
 ```tsx
+interface Identified {
+  id: string;
+}
+```
+
+이거는 어떤 객체가 string으로 할당 가능한 id 속성을 가지고 있다면 그 객체는 Identified이다
+
+```tsx
 interface Person {
   name: string;
 }
@@ -50,6 +58,24 @@ interface PersonSpan extends Person {
 
 위의 코드에서 PersonSpan 타입의 모든 값은 문자열 name 속성을 가져야 한다. 그라고 birth 속성을 가져야 제대로 된 부분 집합이 된다
 
+그렇다면 서브타입은 어떤 집합이 다른 집합의 부분 집합이라는 뜻이다
+
+이 코드를 보면
+
+```tsx
+interface Vector1D {
+  x: number;
+}
+interface Vector2D extends Vector1D {
+  y: number;
+}
+interface Vector3D extends Vector2D {
+  z: number;
+}
+```
+
+Vector3D는 Vector2D의 서브 타입이고 Vector2D는 Vector1D의 서브타입이다
+
 이러한 코드가 있을 때
 
 ```tsx
@@ -58,7 +84,7 @@ class MyString extends String {
 }
 ```
 
-상속의 관점에서 객체 래퍼 타입 String의 서브 클래스를 정의해야겠지만 그렇게 바람직한 방법은 아니라고 한다
+상속의 관점에서 객체 래퍼(wrapper) 타입 String의 서브 클래스를 정의해야겠지만 그렇게 바람직한 방법은 아니라고 한다
 
 그 이유는
 
